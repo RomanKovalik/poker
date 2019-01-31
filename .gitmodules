@@ -1,0 +1,3 @@
+[submodule "Curie"]
+	path = Curie
+	url = https://github.com/fauxCoder/curie.git
