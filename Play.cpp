@@ -53,24 +53,20 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
         m_RM.AddImage(RM::MakeKey<Spice, uint32_t>(Spice::WinSpice, {pw}), asset);
     }
 
-    m_SB.AddSound(Sounds::BigDeal, m_SB.SForF(4.0), [&](uint32_t t, uint32_t l, int16_t& left, int16_t& right)
+    m_SB.AddSound(Sounds::BigDeal, m_SB.SForF(4.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
     {
-        left = SH<int16_t>(t, l)
+        out = SH(t, l)
             .Sin(7.0)
-            .Vol(0.5)
+            .Scale(0.5)
             .Done();
-
-        right = left;
     });
 
-    m_SB.AddSound(Sounds::SmallDeal, m_SB.SForF(0.75), [&](uint32_t t, uint32_t l, int16_t& left, int16_t& right)
+    m_SB.AddSound(Sounds::SmallDeal, m_SB.SForF(0.75), [&](uint32_t t, uint32_t l, SB::working_t& out)
     {
-        left = SH<int16_t>(t, l)
+        out = SH(t, l)
             .Sin(8.0)
-            .Vol(0.5)
+            .Scale(0.5)
             .Done();
-
-        right = left;
     });
 }
 

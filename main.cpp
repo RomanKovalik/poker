@@ -21,7 +21,7 @@ int32_t main(int32_t argc, char* args[])
     auto w = RM::Create();
     RM rm(q, *w);
 
-    SB sb(q);
+    SB sb(q, 1);
 
     Play p(q, rm, sb);
     p.Run();
