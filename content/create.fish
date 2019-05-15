@@ -1,50 +1,50 @@
-#!/bin/bash
+#!/usr/bin/env fish
 
-NUM_OFFSET=+11+15
-NUM_OFFSET_FLIP=+37+65
-SUIT_OFFSET=+16+32
+set NUM_OFFSET +11+15
+set NUM_OFFSET_FLIP +37+65
+set SUIT_OFFSET +16+32
 
-for n in nums/*.png; do
-    for s in bsuits/*.png; do
+for n in nums/*.png
+    for s in bsuits/*.png
         convert card.png \
         -page $NUM_OFFSET $n \
         -page $NUM_OFFSET_FLIP \( $n -flip -flop \) \
         -page $SUIT_OFFSET $s \
         -background none \
-        -flatten "out/$(basename ${n%.*})_$(basename ${s%.*}).png"
-    done
-done
+        -flatten out/(basename $n .png)_(basename $s .png).png
+    end
+end
 
-for n in nums/*.png; do
-    for s in rsuits/*.png; do
+for n in nums/*.png
+    for s in rsuits/*.png
         convert card.png \
         -page $NUM_OFFSET \( $n -fuzz 0% -fill "#ff0000" -opaque "#000000" \) \
         -page $NUM_OFFSET_FLIP \( $n -fuzz 0% -fill "#ff0000" -opaque "#000000" -flip -flop \) \
         -page $SUIT_OFFSET $s \
         -background none \
-        -flatten "out/$(basename ${n%.*})_$(basename ${s%.*}).png"
-    done
-done
+        -flatten out/(basename $n .png)_(basename $s .png).png
+    end
+end
 
-T_NUM_OFFSET=+2-1
-T_SUIT_OFFSET=+2+11
+set T_NUM_OFFSET +2-1
+set T_SUIT_OFFSET +2+11
 
-for n in t_nums/*.png; do
-    for s in t_bsuits/*.png; do
+for n in t_nums/*.png
+    for s in t_bsuits/*.png
         convert t_card.png \
         -page $T_NUM_OFFSET $n \
         -page $T_SUIT_OFFSET $s \
         -background none \
-        -flatten "out/$(basename ${n%.*})_$(basename ${s%.*})_t.png"
-    done
-done
+        -flatten out/(basename $n .png)_(basename $s .png)_t.png
+    end
+end
 
-for n in t_nums/*.png; do
-    for s in t_rsuits/*.png; do
+for n in t_nums/*.png
+    for s in t_rsuits/*.png
         convert t_card.png \
         -page $T_NUM_OFFSET \( $n -fuzz 0% -fill "#ff0000" -opaque "#000000" \) \
         -page $T_SUIT_OFFSET $s \
         -background none \
-        -flatten "out/$(basename ${n%.*})_$(basename ${s%.*})_t.png"
-    done
-done
+        -flatten out/(basename $n .png)_(basename $s .png)_t.png
+    end
+end
