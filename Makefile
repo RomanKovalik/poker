@@ -9,7 +9,7 @@ DEP = $(OBJ:.o=.d)
 
 CXX = g++
 COMPILER_FLAGS.default = -std=c++17 -Wall -I.
-COMPILER_FLAGS.debug = -Werror -Wfatal-errors
+COMPILER_FLAGS.debug = -g -Werror -Wfatal-errors
 COMPILER_FLAGS.release = -O3 -DNDEBUG
 
 LINKER_FLAGS = -lpthread -lSDL2 -lSDL2_image
