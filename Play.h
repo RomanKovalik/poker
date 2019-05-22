@@ -2,7 +2,6 @@
 
 #include <Card.h>
 
-#include <better_enums/enum.h>
 #include <pcg/pcg_random.hpp>
 
 #include <vector>
@@ -12,12 +11,13 @@ struct Quartz;
 struct RM;
 struct SB;
 
-BETTER_ENUM(Sounds, uint32_t,
-    BigDeal,
+enum Sounds
+{
+    BigDeal = 0,
     SmallDeal,
     Nup,
     Win
-);
+};
 
 struct Play
 {

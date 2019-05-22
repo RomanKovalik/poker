@@ -6,11 +6,11 @@ Deck::Deck(DeckFlags a_Flags)
 : m_RNG(pcg_extras::seed_seq_from<std::random_device>{})
 , m_Flags(a_Flags)
 {
-    for (Value v : Value::_values())
+    for (auto v = 0; v <= Ace; ++v)
     {
-        for (Suit s : Suit::_values())
+        for (auto s = 0; s <= Diamonds; ++s)
         {
-            m_Cards.push_back(Card(v, s));
+            m_Cards.push_back(Card((Value)v, (Suit)s));
         }
     }
 }

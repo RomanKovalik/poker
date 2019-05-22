@@ -27,7 +27,7 @@ void Poker::See(SDL_Rect& a_Rect)
         uint32_t key;
         uint32_t spacing = 0;
 
-        if (m_Flags & PokerFlags::Small)
+        if (m_Flags & PF_Small)
         {
             key = c.GetSmallKey();
             spacing = 1;
@@ -53,7 +53,7 @@ void Poker::See(SDL_Rect& a_Rect)
         a_Rect.y = m_Y - 8;
         a_Rect.w = 1;
         a_Rect.h = 1;
-        m_RM.Copy(RM::MakeKey<Spice, uint32_t>(Spice::WinSpice, {m_Win}), a_Rect);
+        // m_RM.Copy(RM::MakeKey<Spice, uint32_t>(Spice::WinSpice, {m_Win}), a_Rect);
     }
 }
 

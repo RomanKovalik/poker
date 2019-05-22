@@ -1,0 +1,155 @@
+[
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-std=c++17",
+            "-Wall",
+            "-I.",
+            "-g",
+            "-Werror",
+            "-Wfatal-errors",
+            "-o",
+            "debug/Curie/SB.o",
+            "Curie/SB.cpp"
+        ],
+        "directory": "/home/jameson/code/cpp/poker",
+        "file": "Curie/SB.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-std=c++17",
+            "-Wall",
+            "-I.",
+            "-g",
+            "-Werror",
+            "-Wfatal-errors",
+            "-o",
+            "debug/Poker.o",
+            "Poker.cpp"
+        ],
+        "directory": "/home/jameson/code/cpp/poker",
+        "file": "Poker.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-std=c++17",
+            "-Wall",
+            "-I.",
+            "-g",
+            "-Werror",
+            "-Wfatal-errors",
+            "-o",
+            "debug/Curie/Quartz.o",
+            "Curie/Quartz.cpp"
+        ],
+        "directory": "/home/jameson/code/cpp/poker",
+        "file": "Curie/Quartz.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-std=c++17",
+            "-Wall",
+            "-I.",
+            "-g",
+            "-Werror",
+            "-Wfatal-errors",
+            "-o",
+            "debug/Curie/Input.o",
+            "Curie/Input.cpp"
+        ],
+        "directory": "/home/jameson/code/cpp/poker",
+        "file": "Curie/Input.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-std=c++17",
+            "-Wall",
+            "-I.",
+            "-g",
+            "-Werror",
+            "-Wfatal-errors",
+            "-o",
+            "debug/Deck.o",
+            "Deck.cpp"
+        ],
+        "directory": "/home/jameson/code/cpp/poker",
+        "file": "Deck.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-std=c++17",
+            "-Wall",
+            "-I.",
+            "-g",
+            "-Werror",
+            "-Wfatal-errors",
+            "-o",
+            "debug/Curie/Cog.o",
+            "Curie/Cog.cpp"
+        ],
+        "directory": "/home/jameson/code/cpp/poker",
+        "file": "Curie/Cog.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-std=c++17",
+            "-Wall",
+            "-I.",
+            "-g",
+            "-Werror",
+            "-Wfatal-errors",
+            "-o",
+            "debug/main.o",
+            "main.cpp"
+        ],
+        "directory": "/home/jameson/code/cpp/poker",
+        "file": "main.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-std=c++17",
+            "-Wall",
+            "-I.",
+            "-g",
+            "-Werror",
+            "-Wfatal-errors",
+            "-o",
+            "debug/Play.o",
+            "Play.cpp"
+        ],
+        "directory": "/home/jameson/code/cpp/poker",
+        "file": "Play.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-std=c++17",
+            "-Wall",
+            "-I.",
+            "-g",
+            "-Werror",
+            "-Wfatal-errors",
+            "-o",
+            "debug/Curie/RM.o",
+            "Curie/RM.cpp"
+        ],
+        "directory": "/home/jameson/code/cpp/poker",
+        "file": "Curie/RM.cpp"
+    }
+]

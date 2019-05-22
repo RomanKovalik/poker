@@ -21,36 +21,32 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
 , m_RM(a_RM)
 , m_SB(a_SB)
 {
-    for (Value v : Value::_values())
+    for (auto v = 0; v <= Ace; ++v)
     {
-        for (Suit s : Suit::_values())
+        for (auto s = 0; s <= Diamonds; ++s)
         {
+            Card c((Value)v, (Suit)s);
+
             std::string name = "content/out/";
-            name += v._to_string();
-            name += "_";
-            name += s._to_string();
+            name += c.GetString();
 
             std::string smallName = name;
 
             smallName += "_t.png";
             name += ".png";
 
-            Card c(v, s);
             m_RM.AddImage(c.GetKey(), name);
             m_RM.AddImage(c.GetSmallKey(), smallName);
         }
     }
 
-    for (PokerWin pw : PokerWin::_values())
+    for (uint32_t pw = Pair; pw <= RoyalFlush; ++pw)
     {
-        if (pw == (PokerWin)PokerWin::None)
-            continue;
-
         std::string asset = "content/";
-        asset += pw._to_string();
+        asset += Poker::GetString((PokerWin)pw);
         asset += ".png";
 
-        m_RM.AddImage(RM::MakeKey<Spice, uint32_t>(Spice::WinSpice, {pw}), asset);
+        // m_RM.AddImage(RM::MakeKey<Spice, uint32_t>(Spice::WinSpice, {pw}), asset);
     }
 
     m_SB.AddSound(Sounds::BigDeal, m_SB.SForF(4.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
@@ -96,7 +92,7 @@ void Play::Run()
         {
             for (uint32_t col = 0; col < 6; ++col)
             {
-                Poker* s = new Poker(m_RM, 14 + (col * 105), 10 + (row * 32), PokerFlags::Small);
+                Poker* s = new Poker(m_RM, 14 + (col * 105), 10 + (row * 32), PF_Small);
                 s->m_Deck = p.m_Deck;
                 others.push_back(s);
             }
@@ -144,12 +140,13 @@ void Play::Run()
             uint32_t waited = 0;
             while (o->m_Hand.size() < 5)
             {
-                m_SB.PlaySound(Sounds::SmallDeal);
                 o->Draw();
                 m_Q.Wait(1);
 
                 waited++;
             }
+
+            m_SB.PlaySound(Sounds::SmallDeal);
 
             m_Q.Wait(1);
 

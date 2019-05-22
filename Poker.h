@@ -3,19 +3,18 @@
 #include <Card.h>
 #include <Deck.h>
 
-#include <better_enums/enum.h>
-
 #include <algorithm>
 #include <vector>
 
-BETTER_ENUM(PokerFlags, uint32_t,
-    None = 0x0,
-    Small = 0x1
-);
+enum PokerFlags
+{
+    PF_None = 0x0,
+    PF_Small = 0x1,
+};
 
-
-BETTER_ENUM(PokerWin, uint32_t,
-    None,
+enum PokerWin
+{
+    None = 0,
     Pair,
     TwoPair,
     ThreeOfAKind,
@@ -24,12 +23,28 @@ BETTER_ENUM(PokerWin, uint32_t,
     FullHouse,
     FourOfAKind,
     StraightFlush,
-    RoyalFlush
-);
+    RoyalFlush,
+};
+
+static const char* PokerWins[]
+{
+    "None",
+    "Pair",
+    "TwoPair",
+    "ThreeOfAKind",
+    "Straight",
+    "Flush",
+    "FullHouse",
+    "FourOfAKind",
+    "StraightFlush",
+    "RoyalFlush",
+};
 
 struct Poker
 {
-    Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags = PokerFlags::None);
+    static const char* GetString(PokerWin a_W) { return PokerWins[a_W]; }
+
+    Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags = PF_None);
 
     ~Poker();
 

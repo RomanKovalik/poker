@@ -4,12 +4,11 @@
 
 #include <Curie/RM.h>
 
-#include <better_enums/enum.h>
-
 #include <string>
 
-BETTER_ENUM(Value, uint8_t,
-    Two,
+enum Value
+{
+    Two = 0,
     Three,
     Four,
     Five,
@@ -21,15 +20,41 @@ BETTER_ENUM(Value, uint8_t,
     Jack,
     Queen,
     King,
-    Ace
-);
+    Ace,
+};
 
-BETTER_ENUM(Suit, uint8_t,
-    Spades,
+static const char* ValueStrings[]
+{
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
+    "Jack",
+    "Queen",
+    "King",
+    "Ace",
+};
+
+enum Suit
+{
+    Spades = 0,
     Hearts,
     Clubs,
-    Diamonds
-);
+    Diamonds,
+};
+
+static const char* SuitStrings[]
+{
+    "Spades",
+    "Hearts",
+    "Clubs",
+    "Diamonds",
+};
 
 struct Card
 {
@@ -41,21 +66,21 @@ struct Card
 
     std::string GetString()
     {
-        std::string ret = m_Value._to_string();
-        ret += " of ";
-        ret += m_Suit._to_string();
+        std::string ret = ValueStrings[m_Value];
+        ret += "_";
+        ret += SuitStrings[m_Suit];
 
         return ret;
     }
 
     uint32_t GetKey()
     {
-        return RM::MakeKey<Spice, uint8_t>(Spice::CardSpice, { m_Value, m_Suit });
+        return 0; // RM::MakeKey<Spice, uint8_t>(Spice::CardSpice, { m_Value, m_Suit });
     }
 
     uint32_t GetSmallKey()
     {
-        return RM::MakeKey<Spice, uint8_t>(Spice::SmallCardSpice, { m_Value, m_Suit });
+        return 0; // RM::MakeKey<Spice, uint8_t>(Spice::SmallCardSpice, { m_Value, m_Suit });
     }
 
     Value m_Value;
