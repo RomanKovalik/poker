@@ -50,7 +50,7 @@ struct Poker
 
     Poker(const Poker&) = delete;
 
-    void See(SDL_Rect& a_Rect);
+    void Write();
 
     void Draw();
 
@@ -59,7 +59,6 @@ struct Poker
     void Score();
 
     RM& m_RM;
-    End* m_End;
     int32_t m_X;
     int32_t m_Y;
 
@@ -70,4 +69,7 @@ struct Poker
     Deck m_Deck;
     std::vector<Card> m_Hand;
     PokerWin m_Win;
+
+    std::vector<Flick*> m_Cards;
+    Flick* m_Score;
 };

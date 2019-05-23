@@ -5,21 +5,27 @@
 
 Poker::Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags)
 : m_RM(a_RM)
-, m_End(m_RM.AddEnd(std::bind(&Poker::See, this, std::placeholders::_1), this))
 , m_X(a_X)
 , m_Y(a_Y)
 , m_Flags(a_Flags)
 , m_ShowScore(false)
 , m_Win(PokerWin::None)
+, m_Score(nullptr)
 {
+    m_Cards.push_back(a_RM.AddFlick());
+    m_Cards.push_back(a_RM.AddFlick());
+    m_Cards.push_back(a_RM.AddFlick());
+    m_Cards.push_back(a_RM.AddFlick());
+    m_Cards.push_back(a_RM.AddFlick());
+
+    m_Score = a_RM.AddFlick();
 }
 
 Poker::~Poker()
 {
-    m_RM.RemoveEnd(m_End);
 }
 
-void Poker::See(SDL_Rect& a_Rect)
+void Poker::Write()
 {
     uint32_t i = 0;
     for (auto& c : m_Hand)
@@ -37,23 +43,25 @@ void Poker::See(SDL_Rect& a_Rect)
             key = c.GetKey();
         }
 
-        a_Rect.x = m_X + ((m_RM.GetImage(key)->W + spacing) * i);
-        a_Rect.y = m_Y;
-        a_Rect.w = 1;
-        a_Rect.h = 1;
+        SDL_Rect r;
+        r.x = m_X + ((m_RM.GetImage(key)->W + spacing) * i);
+        r.y = m_Y;
+        r.w = 1;
+        r.h = 1;
 
-        m_RM.Copy(key, a_Rect);
+        m_Cards[i]->write(key, r);
 
         i++;
     }
 
     if (m_ShowScore)
     {
-        a_Rect.x = m_X + 2;
-        a_Rect.y = m_Y - 8;
-        a_Rect.w = 1;
-        a_Rect.h = 1;
-        // m_RM.Copy(RM::MakeKey<Spice, uint32_t>(Spice::WinSpice, {m_Win}), a_Rect);
+        SDL_Rect r;
+        r.x = m_X + 2;
+        r.y = m_Y - 8;
+        r.w = 1;
+        r.h = 1;
+        m_Score->write(m_Win, r);
     }
 }
 

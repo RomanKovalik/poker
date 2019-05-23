@@ -75,12 +75,12 @@ struct Card
 
     uint32_t GetKey()
     {
-        return 0; // RM::MakeKey<Spice, uint8_t>(Spice::CardSpice, { m_Value, m_Suit });
+        return 0;
     }
 
     uint32_t GetSmallKey()
     {
-        return 0; // RM::MakeKey<Spice, uint8_t>(Spice::SmallCardSpice, { m_Value, m_Suit });
+        return 0;
     }
 
     Value m_Value;

@@ -82,8 +82,10 @@ void Play::Run()
         while (p.m_Hand.size() < 5)
         {
             m_SB.PlaySound(Sounds::BigDeal);
+            p.Write();
             m_Q.Wait(5);
             p.Draw();
+            p.Write();
             m_Q.Wait(10);
         }
 
@@ -128,6 +130,7 @@ void Play::Run()
 
         in.Enter([&]()
         {
+            p.Write();
         });
 
         if (exit)
@@ -141,6 +144,7 @@ void Play::Run()
             while (o->m_Hand.size() < 5)
             {
                 o->Draw();
+                o->Write();
                 m_Q.Wait(1);
 
                 waited++;
@@ -148,6 +152,7 @@ void Play::Run()
 
             m_SB.PlaySound(Sounds::SmallDeal);
 
+            o->Write();
             m_Q.Wait(1);
 
             o->Score();
