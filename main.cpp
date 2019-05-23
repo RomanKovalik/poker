@@ -6,7 +6,7 @@
 
 #include <SDL2/SDL.h>
 
-#include <stdio.h>
+#include <cstdio>
 
 int32_t main(int32_t argc, char* args[])
 {
@@ -16,15 +16,18 @@ int32_t main(int32_t argc, char* args[])
         return -1;
     }
 
-    Quartz q;
-
     auto w = RM::Create();
-    RM rm(q, *w);
 
-    SB sb(q, 1);
+    {
+        Quartz q;
 
-    Play p(q, rm, sb);
-    p.Run();
+        RM rm(q, *w);
+
+        SB sb(q, 1);
+
+        Play p(q, rm, sb);
+        p.Run();
+    }
 
     RM::Destroy(w);
 
