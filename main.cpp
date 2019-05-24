@@ -21,12 +21,15 @@ int32_t main(int32_t argc, char* args[])
     {
         Quartz q;
 
-        RM rm(q, *w);
+        {
+            RM rm(q, *w);
+            SB sb(q, 1);
 
-        SB sb(q, 1);
-
-        Play p(q, rm, sb);
-        p.Run();
+            {
+                Play p(q, rm, sb);
+                p.Run();
+            }
+        }
     }
 
     RM::Destroy(w);
