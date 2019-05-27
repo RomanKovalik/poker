@@ -23,6 +23,12 @@ Poker::Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags)
 
 Poker::~Poker()
 {
+    for (auto c : m_Cards)
+        delete c;
+
+    m_Cards.clear();
+
+    delete m_Score;
 }
 
 void Poker::Write()
@@ -61,7 +67,7 @@ void Poker::Write()
         r.y = m_Y - 8;
         r.w = 1;
         r.h = 1;
-        m_Score->write(m_Win, r);
+        // m_Score->write(m_Win, r);
     }
 }
 

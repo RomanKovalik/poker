@@ -130,7 +130,6 @@ void Play::Run()
 
         in.Enter([&]()
         {
-            p.Write();
         });
 
         if (exit)
