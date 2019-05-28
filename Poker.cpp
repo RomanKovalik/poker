@@ -67,7 +67,8 @@ void Poker::Write()
         r.y = m_Y - 8;
         r.w = 1;
         r.h = 1;
-        // m_Score->write(m_Win, r);
+
+        m_Score->write(m_Win, r);
     }
 }
 
