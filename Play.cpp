@@ -21,24 +21,7 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
 , m_RM(a_RM)
 , m_SB(a_SB)
 {
-    for (auto v = 0; v <= Ace; ++v)
-    {
-        for (auto s = 0; s <= Diamonds; ++s)
-        {
-            Card c((Value)v, (Suit)s);
-
-            std::string name = "content/out/";
-            name += c.GetString();
-
-            std::string smallName = name;
-
-            smallName += "_t.png";
-            name += ".png";
-
-            m_RM.AddImage(c.GetKey(), name);
-            m_RM.AddImage(c.GetSmallKey(), smallName);
-        }
-    }
+    Card::Load(a_RM);
 
     for (uint32_t pw = Pair; pw <= RoyalFlush; ++pw)
     {

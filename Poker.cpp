@@ -41,12 +41,12 @@ void Poker::Write()
 
         if (m_Flags & PF_Small)
         {
-            key = c.GetSmallKey();
+            key = Card::s_Keys[1][c.m_Value][c.m_Suit];
             spacing = 1;
         }
         else
         {
-            key = c.GetKey();
+            key = Card::s_Keys[0][c.m_Value][c.m_Suit];
         }
 
         SDL_Rect r;
