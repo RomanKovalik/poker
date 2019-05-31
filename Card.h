@@ -4,7 +4,6 @@
 
 #include <Curie/RM.h>
 
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -79,8 +78,6 @@ struct Card
 
                 smallName += "_t.png";
                 name += ".png";
-
-                std::cout << name << std::endl;
 
                 s_Keys[0][v][s] = a_RM.AddImage(name);
                 s_Keys[1][v][s] = a_RM.AddImage(smallName);

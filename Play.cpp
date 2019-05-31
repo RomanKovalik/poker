@@ -94,6 +94,7 @@ void Play::Run()
                 for (auto o : others)
                 {
                     o->Hold(p.m_Hand[index]);
+                    o->Write();
                 }
 
                 held.insert(index);
@@ -122,6 +123,8 @@ void Play::Run()
 
         for (auto o : others)
         {
+            m_SB.PlaySound(Sounds::SmallDeal);
+
             uint32_t waited = 0;
             while (o->m_Hand.size() < 5)
             {
@@ -132,10 +135,7 @@ void Play::Run()
                 waited++;
             }
 
-            m_SB.PlaySound(Sounds::SmallDeal);
-
-            o->Write();
-            m_Q.Wait(1);
+            m_Q.Wait(15);
 
             o->Score();
             o->m_ShowScore = true;

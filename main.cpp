@@ -19,7 +19,7 @@ int32_t main(int32_t argc, char* args[])
     auto w = RM::Create();
 
     {
-        Quartz q;
+        Quartz q(25);
 
         {
             RM rm(q, *w);
