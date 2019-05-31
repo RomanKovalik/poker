@@ -12,23 +12,23 @@ Poker::Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags)
 , m_Win(PokerWin::None)
 , m_Score(nullptr)
 {
-    m_Cards.push_back(a_RM.AddFlick());
-    m_Cards.push_back(a_RM.AddFlick());
-    m_Cards.push_back(a_RM.AddFlick());
-    m_Cards.push_back(a_RM.AddFlick());
-    m_Cards.push_back(a_RM.AddFlick());
+    m_Cards.push_back(m_RM.AddFlick());
+    m_Cards.push_back(m_RM.AddFlick());
+    m_Cards.push_back(m_RM.AddFlick());
+    m_Cards.push_back(m_RM.AddFlick());
+    m_Cards.push_back(m_RM.AddFlick());
 
-    m_Score = a_RM.AddFlick();
+    m_Score = m_RM.AddFlick();
 }
 
 Poker::~Poker()
 {
     for (auto c : m_Cards)
-        delete c;
+        m_RM.RemoveFlick(c);
 
     m_Cards.clear();
 
-    delete m_Score;
+    m_RM.RemoveFlick(m_Score);
 }
 
 void Poker::Write()
@@ -74,13 +74,11 @@ void Poker::Write()
 
 void Poker::Draw()
 {
-    std::unique_lock<std::mutex> lk(m_RM.m_Mutex);
     m_Hand.push_back(m_Deck.Draw());
 }
 
 void Poker::Hold(Card a_Card)
 {
-    std::unique_lock<std::mutex> lk(m_RM.m_Mutex);
     m_Hand.push_back(a_Card);
 }
 
