@@ -16,7 +16,7 @@ int32_t main(int32_t argc, char* args[])
         return -1;
     }
 
-    auto w = RM::Create();
+    auto w = RM::CreateWindow();
 
     {
         Quartz q(25);

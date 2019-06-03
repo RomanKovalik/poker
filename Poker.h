@@ -69,7 +69,4 @@ struct Poker
     Deck m_Deck;
     std::vector<Card> m_Hand;
     PokerWin m_Win;
-
-    std::vector<Flick*> m_Cards;
-    Flick* m_Score;
 };

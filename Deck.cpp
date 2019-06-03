@@ -2,24 +2,38 @@
 
 #include <random>
 
-Deck::Deck(DeckFlags a_Flags)
-: m_RNG(pcg_extras::seed_seq_from<std::random_device>{})
+Deck::Deck(RM& a_RM, DeckFlags a_Flags)
+: m_RM(a_RM)
+, m_RNG(pcg_extras::seed_seq_from<std::random_device>{})
 , m_Flags(a_Flags)
 {
     for (auto v = 0; v <= Ace; ++v)
     {
         for (auto s = 0; s <= Diamonds; ++s)
         {
-            m_Cards.push_back(Card((Value)v, (Suit)s));
+            m_Cards.push_back(Card(m_RM, (Value)v, (Suit)s));
         }
     }
 }
 
-Deck::Deck(const Deck& a_Deck)
-: m_RNG(pcg_extras::seed_seq_from<std::random_device>{})
-, m_Flags(a_Deck.m_Flags)
-, m_Cards(a_Deck.m_Cards)
+Deck::Deck(const Deck& d)
+: m_RM(d.m_RM)
+, m_RNG(pcg_extras::seed_seq_from<std::random_device>{})
+, m_Flags(d.m_Flags)
+, m_Cards(d.m_Cards)
 {
+}
+
+Deck& Deck::operator=(const Deck& d)
+{
+    if (&d != this)
+    {
+        m_RNG = pcg64_unique(pcg_extras::seed_seq_from<std::random_device>{});
+        m_Flags = d.m_Flags;
+        m_Cards = d.m_Cards;
+    }
+
+    return *this;
 }
 
 Card Deck::Draw()
@@ -48,5 +62,5 @@ Card Deck::Take(Value a_Value, Suit a_Suit)
     }
 
     assert(false);
-    return Card(Value::Ace, Suit::Spades);
+    return Card(m_RM, Value::Ace, Suit::Spades);
 }

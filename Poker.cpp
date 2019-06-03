@@ -9,26 +9,13 @@ Poker::Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags)
 , m_Y(a_Y)
 , m_Flags(a_Flags)
 , m_ShowScore(false)
+, m_Deck(m_RM)
 , m_Win(PokerWin::None)
-, m_Score(nullptr)
 {
-    m_Cards.push_back(m_RM.AddFlick());
-    m_Cards.push_back(m_RM.AddFlick());
-    m_Cards.push_back(m_RM.AddFlick());
-    m_Cards.push_back(m_RM.AddFlick());
-    m_Cards.push_back(m_RM.AddFlick());
-
-    m_Score = m_RM.AddFlick();
 }
 
 Poker::~Poker()
 {
-    for (auto c : m_Cards)
-        m_RM.RemoveFlick(c);
-
-    m_Cards.clear();
-
-    m_RM.RemoveFlick(m_Score);
 }
 
 void Poker::Write()
@@ -49,13 +36,11 @@ void Poker::Write()
             key = Card::s_Keys[0][c.m_Value][c.m_Suit];
         }
 
-        SDL_Rect r;
-        r.x = m_X + ((m_RM.GetImage(key)->W + spacing) * i);
-        r.y = m_Y;
-        r.w = 1;
-        r.h = 1;
-
-        m_Cards[i]->write(key, r);
+        assert(c.m_End);
+        (*c.m_End)->write(
+            key,
+            m_X + ((m_RM.GetImage(key)->W + spacing) * i),
+            m_Y);
 
         i++;
     }
@@ -65,10 +50,6 @@ void Poker::Write()
         SDL_Rect r;
         r.x = m_X + 2;
         r.y = m_Y - 8;
-        r.w = 1;
-        r.h = 1;
-
-        m_Score->write(m_Win, r);
     }
 }
 

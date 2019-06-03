@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Spice.h>
-
 #include <Curie/RM.h>
 
 #include <string>
@@ -69,10 +67,8 @@ struct Card
         {
             for (auto s = 0; s < SuitStrings.size(); ++s)
             {
-                Card c((Value)v, (Suit)s);
-
                 std::string name = "content/out/";
-                name += c.GetString();
+                name += GetString((Value)v, (Suit)s);
 
                 std::string smallName = name;
 
@@ -85,23 +81,79 @@ struct Card
         }
     }
 
-    static std::vector<std::vector<std::vector<uint32_t>>> s_Keys;
-
-    Card(Value a_Value, Suit a_Suit)
-    : m_Value(a_Value)
-    , m_Suit(a_Suit)
+    static std::string GetString(Value a_Value, Suit a_Suit)
     {
-    }
-
-    std::string GetString()
-    {
-        std::string ret = ValueStrings[m_Value];
+        std::string ret = ValueStrings[a_Value];
         ret += "_";
-        ret += SuitStrings[m_Suit];
+        ret += SuitStrings[a_Suit];
 
         return ret;
     }
 
+    static std::vector<std::vector<std::vector<uint32_t>>> s_Keys;
+
+    Card(RM& a_RM, Value a_Value, Suit a_Suit)
+    : m_RM(a_RM)
+    , m_Value(a_Value)
+    , m_Suit(a_Suit)
+    , m_End(m_RM.Add())
+    {
+    }
+
+    Card(const Card& c)
+    : m_RM(c.m_RM)
+    , m_Value(c.m_Value)
+    , m_Suit(c.m_Suit)
+    , m_End(m_RM.Add())
+    {
+    }
+
+    Card(Card&& c)
+    : m_RM(c.m_RM)
+    , m_Value(c.m_Value)
+    , m_Suit(c.m_Suit)
+    , m_End(c.m_End)
+    {
+        c.m_End = nullptr;
+    }
+
+    Card& operator=(const Card& c)
+    {
+        if (&c != this)
+        {
+            m_Value = c.m_Value;
+            m_Suit = c.m_Suit;
+
+            m_End = m_RM.Add();
+        }
+
+        return *this;
+    }
+
+    Card& operator=(Card&& c)
+    {
+        if (&c != this)
+        {
+            m_Value = c.m_Value;
+            m_Suit = c.m_Suit;
+
+            m_End = c.m_End;
+            c.m_End = nullptr;
+        }
+
+        return *this;
+    }
+
+    ~Card()
+    {
+        if (m_End)
+            m_RM.Remove(m_End);
+    }
+
+    RM& m_RM;
+
     Value m_Value;
     Suit m_Suit;
+
+    CiCa::End** m_End;
 };

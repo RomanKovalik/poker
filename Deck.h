@@ -2,6 +2,8 @@
 
 #include <Card.h>
 
+#include <Curie/RM.h>
+
 #include <pcg/pcg_random.hpp>
 
 #include <vector>
@@ -13,13 +15,17 @@ enum DeckFlags
 
 struct Deck
 {
-    Deck(DeckFlags a_Flags = DF_None);
+    Deck(RM& a_RM, DeckFlags a_Flags = DF_None);
 
-    Deck(const Deck& a_Deck);
+    Deck(const Deck& d);
+
+    Deck& operator=(const Deck& d);
 
     Card Draw();
 
     Card Take(Value a_Value, Suit a_Suit);
+
+    RM& m_RM;
 
     pcg64_unique m_RNG;
 
