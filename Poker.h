@@ -4,6 +4,7 @@
 #include <Deck.h>
 
 #include <algorithm>
+#include <memory>
 #include <vector>
 
 enum PokerFlags
@@ -42,6 +43,66 @@ static const char* PokerWins[]
 
 struct Poker
 {
+    struct VisibleCard
+    {
+        VisibleCard(RM& a_RM, Card a_Card)
+        : m_RM(a_RM)
+        , m_Card(a_Card)
+        , m_End(m_RM.Add())
+        {
+        }
+
+        VisibleCard(const VisibleCard& c)
+        : m_RM(c.m_RM)
+        , m_Card(c.m_Card)
+        , m_End(m_RM.Add())
+        {
+        }
+
+        VisibleCard(VisibleCard&& c)
+        : m_RM(c.m_RM)
+        , m_Card(c.m_Card)
+        , m_End(c.m_End)
+        {
+            c.m_End = nullptr;
+        }
+
+        VisibleCard& operator=(const VisibleCard& c)
+        {
+            if (&c != this)
+            {
+                m_Card = c.m_Card;
+
+                m_End = m_RM.Add();
+            }
+
+            return *this;
+        }
+
+        VisibleCard& operator=(VisibleCard&& c)
+        {
+            if (&c != this)
+            {
+                m_Card = c.m_Card;
+
+                m_End = c.m_End;
+                c.m_End = nullptr;
+            }
+
+            return *this;
+        }
+
+        ~VisibleCard()
+        {
+            if (m_End)
+                m_RM.Remove(m_End);
+        }
+
+        RM& m_RM;
+        Card m_Card;
+        CiCa::End** m_End;
+    };
+
     static const char* GetString(PokerWin a_W) { return PokerWins[a_W]; }
 
     Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags = PF_None);
@@ -67,6 +128,6 @@ struct Poker
     bool m_ShowScore;
 
     Deck m_Deck;
-    std::vector<Card> m_Hand;
+    std::vector<std::unique_ptr<VisibleCard>> m_Hand;
     PokerWin m_Win;
 };

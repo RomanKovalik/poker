@@ -66,10 +66,10 @@ void Play::Run()
         {
             m_SB.PlaySound(Sounds::BigDeal);
             p.Write();
-            m_Q.Teeth(3);
+            m_Q.Teeth(2);
             p.Draw();
             p.Write();
-            m_Q.Teeth(7);
+            m_Q.Teeth(1);
         }
 
         std::vector<Poker*> others;
@@ -93,7 +93,7 @@ void Play::Run()
             {
                 for (auto o : others)
                 {
-                    o->Hold(p.m_Hand[index]);
+                    o->Hold(p.m_Hand[index]->m_Card);
                     o->Write();
                 }
 

@@ -11,7 +11,7 @@ Deck::Deck(RM& a_RM, DeckFlags a_Flags)
     {
         for (auto s = 0; s <= Diamonds; ++s)
         {
-            m_Cards.push_back(Card(m_RM, (Value)v, (Suit)s));
+            m_Cards.push_back(Card((Value)v, (Suit)s));
         }
     }
 }
@@ -62,5 +62,5 @@ Card Deck::Take(Value a_Value, Suit a_Suit)
     }
 
     assert(false);
-    return Card(m_RM, Value::Ace, Suit::Spades);
+    return Card(Value::Ace, Suit::Spades);
 }

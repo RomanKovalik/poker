@@ -28,16 +28,16 @@ void Poker::Write()
 
         if (m_Flags & PF_Small)
         {
-            key = Card::s_Keys[1][c.m_Value][c.m_Suit];
+            key = Card::s_Keys[1][c->m_Card.m_Value][c->m_Card.m_Suit];
             spacing = 1;
         }
         else
         {
-            key = Card::s_Keys[0][c.m_Value][c.m_Suit];
+            key = Card::s_Keys[0][c->m_Card.m_Value][c->m_Card.m_Suit];
         }
 
-        assert(c.m_End);
-        (*c.m_End)->write(
+        assert(c->m_End);
+        (*c->m_End)->write(
             key,
             m_X + ((m_RM.GetImage(key)->W + spacing) * i),
             m_Y);
@@ -55,17 +55,22 @@ void Poker::Write()
 
 void Poker::Draw()
 {
-    m_Hand.push_back(m_Deck.Draw());
+    m_Hand.emplace_back(new VisibleCard(m_RM, m_Deck.Draw()));
 }
 
 void Poker::Hold(Card a_Card)
 {
-    m_Hand.push_back(a_Card);
+    m_Hand.emplace_back(new VisibleCard(m_RM, a_Card));
 }
 
 void Poker::Score()
 {
-    auto hand = m_Hand;
+    std::vector<Card> hand;
+    for (auto& c : m_Hand)
+    {
+        hand.push_back(c->m_Card);
+    }
+
     std::sort(hand.begin(), hand.end(), [](const Card &a, const Card &b)->bool {
         if (a.m_Value != b.m_Value)
         {
