@@ -27,7 +27,7 @@ enum PokerWin
     RoyalFlush,
 };
 
-static const char* PokerWins[]
+static const std::vector<std::string> PokerWinStrings
 {
     "None",
     "Pair",
@@ -103,7 +103,23 @@ struct Poker
         CiCa::End** m_End;
     };
 
-    static const char* GetString(PokerWin a_W) { return PokerWins[a_W]; }
+    static void Load(RM& a_RM)
+    {
+        s_Keys.resize(PokerWinStrings.size(), 0);
+
+        for (uint32_t pw = Pair; pw <= RoyalFlush; ++pw)
+        {
+            std::string asset = "content/";
+            asset += Poker::GetString((PokerWin)pw);
+            asset += ".png";
+
+            s_Keys[pw] = a_RM.AddImage(asset);
+        }
+    }
+
+    static std::string GetString(PokerWin a_W) { return PokerWinStrings[a_W]; }
+
+    static std::vector<uint32_t> s_Keys;
 
     Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags = PF_None);
 
@@ -129,5 +145,6 @@ struct Poker
 
     Deck m_Deck;
     std::vector<std::unique_ptr<VisibleCard>> m_Hand;
+    CiCa::End** m_Score;
     PokerWin m_Win;
 };

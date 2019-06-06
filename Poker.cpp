@@ -3,6 +3,10 @@
 #include <functional>
 #include <map>
 
+using namespace std;
+
+vector<uint32_t> Poker::s_Keys;
+
 Poker::Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags)
 : m_RM(a_RM)
 , m_X(a_X)
@@ -10,12 +14,17 @@ Poker::Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags)
 , m_Flags(a_Flags)
 , m_ShowScore(false)
 , m_Deck(m_RM)
+, m_Score(m_RM.Add())
 , m_Win(PokerWin::None)
 {
 }
 
 Poker::~Poker()
 {
+    if (m_Score)
+    {
+        m_RM.Remove(m_Score);
+    }
 }
 
 void Poker::Write()
@@ -47,9 +56,7 @@ void Poker::Write()
 
     if (m_ShowScore)
     {
-        SDL_Rect r;
-        r.x = m_X + 2;
-        r.y = m_Y - 8;
+        (*m_Score)->write(s_Keys[m_Win], m_X + 2, m_Y - 8);
     }
 }
 

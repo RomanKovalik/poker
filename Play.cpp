@@ -23,14 +23,7 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
 {
     Card::Load(a_RM);
 
-    for (uint32_t pw = Pair; pw <= RoyalFlush; ++pw)
-    {
-        std::string asset = "content/";
-        asset += Poker::GetString((PokerWin)pw);
-        asset += ".png";
-
-        // m_RM.AddImage(RM::MakeKey<Spice, uint32_t>(Spice::WinSpice, {pw}), asset);
-    }
+    Poker::Load(a_RM);
 
     m_SB.AddSound(Sounds::BigDeal, m_SB.SForF(4.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
     {
@@ -134,10 +127,10 @@ void Play::Run()
                 waited++;
             }
 
-            m_Q.Teeth(1);
-
             o->Score();
             o->m_ShowScore = true;
+            o->Write();
+            m_Q.Tooth();
 
             if (o->m_Win == (uint32_t)PokerWin::None)
             {
