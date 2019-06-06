@@ -65,11 +65,10 @@ void Play::Run()
         while (p.m_Hand.size() < 5)
         {
             m_SB.PlaySound(Sounds::BigDeal);
-            p.Write();
-            m_Q.Teeth(2);
+            m_Q.Teeth(5);
             p.Draw();
             p.Write();
-            m_Q.Teeth(1);
+            m_Q.Teeth(10);
         }
 
         std::vector<Poker*> others;
@@ -135,7 +134,7 @@ void Play::Run()
                 waited++;
             }
 
-            m_Q.Teeth(3);
+            m_Q.Teeth(1);
 
             o->Score();
             o->m_ShowScore = true;
