@@ -71,14 +71,14 @@ void Play::Run()
             m_Q.Teeth(10);
         }
 
-        std::vector<Poker*> others;
+        std::vector<std::unique_ptr<Poker>> others;
         for (uint32_t row = 0; row < 12; ++row)
         {
             for (uint32_t col = 0; col < 6; ++col)
             {
                 Poker* s = new Poker(m_RM, 14 + (col * 105), 10 + (row * 32), PF_Small);
                 s->m_Deck = p.m_Deck;
-                others.push_back(s);
+                others.emplace_back(s);
             }
         }
 
@@ -90,7 +90,7 @@ void Play::Run()
 
             if (held.find(index) == held.end())
             {
-                for (auto o : others)
+                for (auto& o : others)
                 {
                     o->Hold(p.m_Hand[index]->m_Card);
                     o->Write();
@@ -120,7 +120,7 @@ void Play::Run()
             continue;
         }
 
-        for (auto o : others)
+        for (auto& o : others)
         {
             m_SB.PlaySound(Sounds::SmallDeal);
 
@@ -163,12 +163,7 @@ void Play::Run()
         in2.Enter([&]()
         {
         });
-
-        while ( ! others.empty())
-        {
-            Poker* d = others.back();
-            delete d;
-            others.pop_back();
-        }
     }
+
+    m_Q.Tooth();
 }
