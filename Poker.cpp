@@ -14,14 +14,14 @@ Poker::Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags)
 , m_Flags(a_Flags)
 , m_ShowScore(false)
 , m_Deck(m_RM)
-, m_Score(m_RM.Add())
+, m_Score(m_RM.Add(10))
 , m_Win(PokerWin::None)
 {
 }
 
 Poker::~Poker()
 {
-    if (m_Score)
+    if (m_Score.m_CiCa)
     {
         m_RM.Remove(m_Score);
     }
@@ -45,8 +45,8 @@ void Poker::Write()
             key = Card::s_Keys[0][c->m_Card.m_Value][c->m_Card.m_Suit];
         }
 
-        assert(c->m_End);
-        (*c->m_End)->write(
+        assert(c->m_Entry.m_CiCa);
+        c->m_Entry.write(
             key,
             m_X + ((m_RM.GetImage(key)->W + spacing) * i),
             m_Y);
@@ -54,9 +54,9 @@ void Poker::Write()
         i++;
     }
 
-    if (m_ShowScore)
+    if (m_ShowScore && m_Win != None)
     {
-        (*m_Score)->write(s_Keys[m_Win], m_X + 2, m_Y - 8);
+        m_Score.write(s_Keys[m_Win], m_X + 2, m_Y - 8);
     }
 }
 

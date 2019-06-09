@@ -3,6 +3,8 @@
 #include <Card.h>
 #include <Deck.h>
 
+#include <Curie/RM.h>
+
 #include <algorithm>
 #include <memory>
 #include <vector>
@@ -48,23 +50,23 @@ struct Poker
         VisibleCard(RM& a_RM, Card a_Card)
         : m_RM(a_RM)
         , m_Card(a_Card)
-        , m_End(m_RM.Add())
+        , m_Entry(m_RM.Add())
         {
         }
 
         VisibleCard(const VisibleCard& c)
         : m_RM(c.m_RM)
         , m_Card(c.m_Card)
-        , m_End(m_RM.Add())
+        , m_Entry(m_RM.Add())
         {
         }
 
         VisibleCard(VisibleCard&& c)
         : m_RM(c.m_RM)
         , m_Card(c.m_Card)
-        , m_End(c.m_End)
+        , m_Entry(c.m_Entry)
         {
-            c.m_End = nullptr;
+            c.m_Entry = nullptr;
         }
 
         VisibleCard& operator=(const VisibleCard& c)
@@ -73,7 +75,7 @@ struct Poker
             {
                 m_Card = c.m_Card;
 
-                m_End = m_RM.Add();
+                m_Entry = m_RM.Add();
             }
 
             return *this;
@@ -85,8 +87,8 @@ struct Poker
             {
                 m_Card = c.m_Card;
 
-                m_End = c.m_End;
-                c.m_End = nullptr;
+                m_Entry = c.m_Entry;
+                c.m_Entry.m_CiCa = nullptr;
             }
 
             return *this;
@@ -94,13 +96,13 @@ struct Poker
 
         ~VisibleCard()
         {
-            if (m_End)
-                m_RM.Remove(m_End);
+            if (m_Entry.m_CiCa)
+                m_RM.Remove(m_Entry);
         }
 
         RM& m_RM;
         Card m_Card;
-        CiCa::End** m_End;
+        RM::Entry m_Entry;
     };
 
     static void Load(RM& a_RM)
@@ -145,6 +147,6 @@ struct Poker
 
     Deck m_Deck;
     std::vector<std::unique_ptr<VisibleCard>> m_Hand;
-    CiCa::End** m_Score;
+    RM::Entry m_Score;
     PokerWin m_Win;
 };
