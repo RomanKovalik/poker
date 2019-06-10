@@ -25,19 +25,27 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
 
     Poker::Load(a_RM);
 
-    m_SB.AddSound(Sounds::BigDeal, m_SB.SForF(4.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
+    m_BigDeal = m_SB.AddSound(m_SB.SForF(3.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
     {
         out = SH(t, l)
-            .Sin(7.0)
-            .Scale(0.5)
+            .Saw(0.006)
+            .Scale(0.8)
             .Done();
     });
 
-    m_SB.AddSound(Sounds::SmallDeal, m_SB.SForF(0.75), [&](uint32_t t, uint32_t l, SB::working_t& out)
+    m_SoftBup = m_SB.AddSound(m_SB.SForF(0.5), [&](uint32_t t, uint32_t l, SB::working_t& out)
+    {
+        out = SH(t, l)
+            .Saw(0.05)
+            .Scale(0.01)
+            .Done();
+    });
+
+    m_Win = m_SB.AddSound(m_SB.SForF(1.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
     {
         out = SH(t, l)
             .Sin(8.0)
-            .Scale(0.5)
+            .Scale(0.8)
             .Done();
     });
 }
@@ -48,20 +56,21 @@ void Play::Run()
     while ( ! exit)
     {
         Poker p(m_RM, 5, 385);
+        p.Write();
+        m_Q.Teeth(10);
 
         // p.Hold(p.m_Deck.Take(Value::Ten, Suit::Diamonds));
         // p.Hold(p.m_Deck.Take(Value::Jack, Suit::Diamonds));
         // p.Hold(p.m_Deck.Take(Value::Queen, Suit::Diamonds));
-        // p.Hold(p.m_Deck.Take(Value::King, Suit::Diamonds));
-        // p.Hold(p.m_Deck.Take(Value::Seven, Suit::Hearts));
+        // p.Hold(p.m_Deck.Take(Value::Nine, Suit::Diamonds));
+        // p.Hold(p.m_Deck.Take(Value::Nine, Suit::Hearts));
 
         while (p.m_Hand.size() < 5)
         {
-            m_SB.PlaySound(Sounds::BigDeal);
-            m_Q.Teeth(5);
+            m_SB.PlaySound(m_BigDeal);
             p.Draw();
             p.Write();
-            m_Q.Teeth(10);
+            m_Q.Teeth(5);
         }
 
         std::vector<std::unique_ptr<Poker>> others;
@@ -115,31 +124,26 @@ void Play::Run()
 
         for (auto& o : others)
         {
-            m_SB.PlaySound(Sounds::SmallDeal);
+            m_SB.PlaySound(m_SoftBup);
 
-            uint32_t waited = 0;
             while (o->m_Hand.size() < 5)
             {
                 o->Draw();
-                o->Write();
-                m_Q.Tooth();
-
-                waited++;
             }
 
-            o->Score();
-            o->m_ShowScore = true;
             o->Write();
             m_Q.Tooth();
 
-            if (o->m_Win == (uint32_t)PokerWin::None)
+            o->Score();
+            o->m_ShowScore = true;
+
+            if (o->m_Win != (uint32_t)PokerWin::None)
             {
-                m_SB.PlaySound(Sounds::Nup);
+                m_SB.PlaySound(m_Win);
             }
-            else
-            {
-                m_SB.PlaySound(Sounds::Win);
-            }
+
+            o->Write();
+            m_Q.Tooth();
         }
 
         Input in2(m_Q);

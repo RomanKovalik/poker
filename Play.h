@@ -11,14 +11,6 @@ struct Quartz;
 struct RM;
 struct SB;
 
-enum Sounds
-{
-    BigDeal = 0,
-    SmallDeal,
-    Nup,
-    Win
-};
-
 struct Play
 {
     Play(Quartz& a_Q, RM& a_RM, SB& a_SB);
@@ -33,4 +25,8 @@ struct Play
     RM& m_RM;
 
     SB& m_SB;
+
+    uint32_t m_BigDeal;
+    uint32_t m_SoftBup;
+    uint32_t m_Win;
 };
