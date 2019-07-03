@@ -29,28 +29,26 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
     {
         out = SH(t, l)
             .Sin(9.0)
-            .Scale(0.8)
-            .Envelope(m_SB.SForF(0.75), m_SB.SForF(3.0), 0.2, m_SB.SForF(0.25))
+            .Scale(0.9)
+            .Envelope(m_SB.SForF(0.75), m_SB.SForF(0.6), 0.3, m_SB.SForF(0.75))
             .Done();
     });
 
-    m_SoftBup = m_SB.AddSound(m_SB.SForF(0.5), [&](uint32_t t, uint32_t l, SB::working_t& out)
+    m_SoftBup = m_SB.AddSound(m_SB.SForF(4.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
     {
         out = SH(t, l)
-            .Saw(0.05)
-            .Scale(0.2)
-            .Envelope(m_SB.SForF(0.2), m_SB.SForF(0.0), 1.0, m_SB.SForF(0.2))
+            .Sin(12.0)
+            .Scale(0.075)
+            .Envelope(m_SB.SForF(0.5), m_SB.SForF(6.0), 0.4, m_SB.SForF(1.0))
             .Done();
-
-        out = 0.0;
     });
 
     m_Win = m_SB.AddSound(m_SB.SForF(2.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
     {
         out = SH(t, l)
-            .Sin(3.0)
+            .Sin(4.0)
             .Scale(0.8)
-            .Envelope(m_SB.SForF(0.75), m_SB.SForF(0.75), 0.2, m_SB.SForF(0.5))
+            .Envelope(m_SB.SForF(0.75), m_SB.SForF(0.75), 0.6, m_SB.SForF(0.5))
             .Done();
     });
 }
@@ -75,7 +73,7 @@ void Play::Run()
             m_SB.PlaySound(m_BigDeal);
             p.Draw();
             p.Write();
-            m_Q.Teeth(8);
+            m_Q.Teeth(7);
         }
 
         std::vector<std::unique_ptr<Poker>> others;
