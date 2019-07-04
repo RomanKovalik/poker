@@ -134,16 +134,17 @@ void Play::Run()
                 o->Draw();
             }
 
-            o->Write();
-            m_Q.Tooth();
-
             o->Score();
-            o->m_ShowScore = true;
 
             if (o->m_Win != (uint32_t)PokerWin::None)
             {
                 m_SB.PlaySound(m_Win);
             }
+
+            o->Write();
+            m_Q.Tooth();
+
+            o->m_ShowScore = true;
 
             o->Write();
             m_Q.Tooth();
