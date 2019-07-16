@@ -1,12 +1,7 @@
 #pragma once
 
-#include <Card.h>
+#include <cstdint>
 
-#include <pcg/pcg_random.hpp>
-
-#include <vector>
-
-struct Deck;
 struct Quartz;
 struct RM;
 struct SB;
