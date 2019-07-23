@@ -89,7 +89,7 @@ void Play::Run()
 
         std::set<uint32_t> held;
         Input in(m_Q);
-        in.m_KeyDownResponses[{SDLK_1, SDLK_2, SDLK_3, SDLK_4, SDLK_5}] = [&](SDL_Keycode a_Key)
+        in.m_KeyDownResponses[Catch({SDLK_1, SDLK_2, SDLK_3, SDLK_4, SDLK_5})] = [&](SDL_Keycode a_Key)
         {
             uint32_t index = a_Key - SDLK_1;
 
@@ -106,11 +106,11 @@ void Play::Run()
 
             return false;
         };
-        in.m_KeyDownResponses[{SDLK_RETURN}] = [](SDL_Keycode a_Key)
+        in.m_KeyDownResponses[Catch({SDLK_RETURN})] = [](SDL_Keycode a_Key)
         {
             return true;
         };
-        in.m_KeyDownResponses[{SDLK_ESCAPE}] = [&](SDL_Keycode a_Key)
+        in.m_KeyDownResponses[Catch({SDLK_ESCAPE})] = [&](SDL_Keycode a_Key)
         {
             exit = true;
             return exit;
@@ -151,11 +151,11 @@ void Play::Run()
         }
 
         Input in2(m_Q);
-        in2.m_KeyDownResponses[{SDLK_RETURN}] = [](SDL_Keycode a_Key)
+        in2.m_KeyDownResponses[Catch({SDLK_RETURN})] = [](SDL_Keycode a_Key)
         {
             return true;
         };
-        in2.m_KeyDownResponses[{SDLK_ESCAPE}] = [&](SDL_Keycode a_Key)
+        in2.m_KeyDownResponses[Catch({SDLK_ESCAPE})] = [&](SDL_Keycode a_Key)
         {
             exit = true;
             return exit;
