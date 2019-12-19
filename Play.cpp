@@ -25,27 +25,27 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
 
     Poker::Load(a_RM);
 
-    m_BigDeal = m_SB.AddSound(m_SB.SForF(5.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
+    m_BigDeal = m_SB.CreateSound(m_SB.SForF(5.0), [&](uint32_t t, uint32_t l, SB::working_t* out)
     {
-        out = SH(t, l)
+        out[0] = SH(t, l)
             .Sin(9.0)
             .Scale(0.9)
             .Envelope(m_SB.SForF(0.75), m_SB.SForF(0.6), 0.3, m_SB.SForF(0.75))
             .Done();
     });
 
-    m_SoftBup = m_SB.AddSound(m_SB.SForF(4.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
+    m_SoftBup = m_SB.CreateSound(m_SB.SForF(4.0), [&](uint32_t t, uint32_t l, SB::working_t* out)
     {
-        out = SH(t, l)
+        out[0] = SH(t, l)
             .Sin(12.0)
             .Scale(0.075)
             .Envelope(m_SB.SForF(0.5), m_SB.SForF(6.0), 0.4, m_SB.SForF(1.0))
             .Done();
     });
 
-    m_Win = m_SB.AddSound(m_SB.SForF(2.0), [&](uint32_t t, uint32_t l, SB::working_t& out)
+    m_Win = m_SB.CreateSound(m_SB.SForF(2.0), [&](uint32_t t, uint32_t l, SB::working_t* out)
     {
-        out = SH(t, l)
+        out[0] = SH(t, l)
             .Sin(4.0)
             .Scale(0.8)
             .Envelope(m_SB.SForF(0.75), m_SB.SForF(0.75), 0.6, m_SB.SForF(0.5))
@@ -88,7 +88,7 @@ void Play::Run()
         }
 
         std::set<uint32_t> held;
-        Input in(m_Q);
+        Input in;
         in.m_KeyDownResponses[Catch({SDLK_1, SDLK_2, SDLK_3, SDLK_4, SDLK_5})] = [&](SDL_Keycode a_Key)
         {
             uint32_t index = a_Key - SDLK_1;
@@ -116,8 +116,9 @@ void Play::Run()
             return exit;
         };
 
-        in.Enter([&]()
+        in.open([&]()
         {
+            m_Q.Tooth();
         });
 
         if (exit)
@@ -150,7 +151,7 @@ void Play::Run()
             m_Q.Tooth();
         }
 
-        Input in2(m_Q);
+        Input in2;
         in2.m_KeyDownResponses[Catch({SDLK_RETURN})] = [](SDL_Keycode a_Key)
         {
             return true;
@@ -161,8 +162,9 @@ void Play::Run()
             return exit;
         };
 
-        in2.Enter([&]()
+        in2.open([&]()
         {
+            m_Q.Tooth();
         });
     }
 
