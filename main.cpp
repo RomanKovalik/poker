@@ -23,7 +23,7 @@ int32_t main(int32_t argc, char* args[])
 
         {
             RM rm(q, *w);
-            SB sb(q, 8, 1);
+            SB sb(q, 1);
 
             {
                 Play p(q, rm, sb);
