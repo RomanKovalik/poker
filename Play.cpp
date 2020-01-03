@@ -25,34 +25,40 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
 
     Poker::Load(a_RM);
 
-    m_BigDeal = m_SB.CreateSound(m_SB.SForF(5.0), 1,
-    [&](uint32_t t, uint32_t l, std::vector<std::array<SB::working_t, SB::s_chunk>>& out, size_t offset)
+    m_BigDeal = m_SB.CreateSound(m_SB.SForF(5.0),
+    [&](uint32_t t, uint32_t l, SB::working_t& mono)
     {
-        out[0][offset] = SH(t, l)
-            .Sin(9.0)
-            .Scale(0.9)
-            .Envelope(m_SB.SForF(0.75), m_SB.SForF(0.6), 0.3, m_SB.SForF(0.75))
-            .Done();
+        static Wave w;
+        w.tune(220.0);
+        mono = SH(t, l)
+            .wave(w)
+            .scale(0.9)
+            .envelope(m_SB.SForF(0.75), m_SB.SForF(0.6), 0.3, m_SB.SForF(0.75))
+            ();
     });
 
-    m_SoftBup = m_SB.CreateSound(m_SB.SForF(4.0), 1,
-    [&](uint32_t t, uint32_t l, std::vector<std::array<SB::working_t, SB::s_chunk>>& out, size_t offset)
+    m_SoftBup = m_SB.CreateSound(m_SB.SForF(4.0),
+    [&](uint32_t t, uint32_t l, SB::working_t& mono)
     {
-        out[0][offset] = SH(t, l)
-            .Sin(12.0)
-            .Scale(0.075)
-            .Envelope(m_SB.SForF(0.5), m_SB.SForF(6.0), 0.4, m_SB.SForF(1.0))
-            .Done();
+        static Wave w;
+        w.tune(160.0);
+        mono = SH(t, l)
+            .wave(w)
+            .scale(0.075)
+            .envelope(m_SB.SForF(0.5), m_SB.SForF(6.0), 0.4, m_SB.SForF(1.0))
+            ();
     });
 
-    m_Win = m_SB.CreateSound(m_SB.SForF(2.0), 1,
-    [&](uint32_t t, uint32_t l, std::vector<std::array<SB::working_t, SB::s_chunk>>& out, size_t offset)
+    m_Win = m_SB.CreateSound(m_SB.SForF(2.0),
+    [&](uint32_t t, uint32_t l, SB::working_t& mono)
     {
-        out[0][offset] = SH(t, l)
-            .Sin(4.0)
-            .Scale(0.8)
-            .Envelope(m_SB.SForF(0.75), m_SB.SForF(0.75), 0.6, m_SB.SForF(0.5))
-            .Done();
+        static Wave w;
+        w.tune(660.0);
+        mono = SH(t, l)
+            .wave(w)
+            .scale(0.8)
+            .envelope(m_SB.SForF(0.75), m_SB.SForF(0.75), 0.6, m_SB.SForF(0.5))
+            ();
     });
 }
 

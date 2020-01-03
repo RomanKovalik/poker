@@ -12,7 +12,7 @@ COMPILER_FLAGS.default = -std=c++17 -Wall -I.
 COMPILER_FLAGS.debug = -g -Werror -Wfatal-errors
 COMPILER_FLAGS.release = -O3 -DNDEBUG
 
-LINKER_FLAGS = -lstdc++ -lm -lpthread -lSDL2 -lSDL2_image
+LINKER_FLAGS = -lstdc++ -lm -lportaudio -lpthread -lSDL2 -lSDL2_image
 
 all: dirs $(OUT_NAME)
 
