@@ -21,9 +21,9 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
 , m_RM(a_RM)
 , m_SB(a_SB)
 {
-    Card::Load(a_RM);
+    Card::load(a_RM);
 
-    Poker::Load(a_RM);
+    Poker::load(a_RM);
 
     m_BigDeal = m_SB.CreateSound(m_SB.SForF(5.0),
     [&](uint32_t t, uint32_t l, SB::working_t& mono)
@@ -69,7 +69,7 @@ void Play::Run()
     {
         Poker p(m_RM, 5, 385);
         p.Write();
-        m_Q.Teeth(10);
+        m_Q.teeth(10);
 
         // p.Hold(p.m_Deck.Take(Value::Ten, Suit::Diamonds));
         // p.Hold(p.m_Deck.Take(Value::Jack, Suit::Diamonds));
@@ -82,7 +82,7 @@ void Play::Run()
             m_SB.PlaySound(m_BigDeal);
             p.Draw();
             p.Write();
-            m_Q.Teeth(7);
+            m_Q.teeth(7);
         }
 
         std::vector<std::unique_ptr<Poker>> others;
@@ -127,7 +127,7 @@ void Play::Run()
 
         in.open([&]()
         {
-            m_Q.Tooth();
+            m_Q.tooth();
         });
 
         if (exit)
@@ -152,12 +152,12 @@ void Play::Run()
             }
 
             o->Write();
-            m_Q.Tooth();
+            m_Q.tooth();
 
             o->m_ShowScore = true;
 
             o->Write();
-            m_Q.Tooth();
+            m_Q.tooth();
         }
 
         Input in2;
@@ -173,9 +173,9 @@ void Play::Run()
 
         in2.open([&]()
         {
-            m_Q.Tooth();
+            m_Q.tooth();
         });
     }
 
-    m_Q.Tooth();
+    m_Q.tooth();
 }

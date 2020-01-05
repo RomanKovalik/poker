@@ -105,7 +105,7 @@ struct Poker
         RM::Entry m_Entry;
     };
 
-    static void Load(RM& a_RM)
+    static void load(RM& a_RM)
     {
         s_Keys.resize(PokerWinStrings.size(), 0);
 
