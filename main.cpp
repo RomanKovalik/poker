@@ -10,19 +10,15 @@
 
 int32_t main(int32_t argc, char* args[])
 {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        printf("SDL_Error: %s\n", SDL_GetError());
-        return -1;
-    }
+    VL::system s;
 
-    auto w = RM::CreateWindow();
+    VL::window w;
 
     {
         Quartz q(25);
 
         {
-            RM rm(q, *w);
+            RM rm(q, *w.window_handle);
             SB sb(q, 1);
 
             {
@@ -31,10 +27,6 @@ int32_t main(int32_t argc, char* args[])
             }
         }
     }
-
-    RM::Destroy(w);
-
-    SDL_Quit();
 
     return 0;
 }

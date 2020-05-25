@@ -69,7 +69,7 @@ void Play::Run()
     {
         Poker p(m_RM, 5, 385);
         p.Write();
-        m_Q.teeth(10);
+        m_Q.teeth(30);
 
         // p.Hold(p.m_Deck.Take(Value::Ten, Suit::Diamonds));
         // p.Hold(p.m_Deck.Take(Value::Jack, Suit::Diamonds));
