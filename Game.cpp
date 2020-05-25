@@ -1,4 +1,4 @@
-#include <Play.h>
+#include <Game.h>
 
 #include <Deck.h>
 #include <Poker.h>
@@ -16,7 +16,7 @@
 #include <utility>
 #include <vector>
 
-Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
+Game::Game(Quartz& a_Q, RM& a_RM, SB& a_SB)
 : m_Q(a_Q)
 , m_RM(a_RM)
 , m_SB(a_SB)
@@ -62,7 +62,7 @@ Play::Play(Quartz& a_Q, RM& a_RM, SB& a_SB)
     });
 }
 
-void Play::Run()
+void Game::run()
 {
     bool exit = false;
     while ( ! exit)

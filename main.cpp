@@ -1,4 +1,4 @@
-#include <Play.h>
+#include <Game.h>
 
 #include <Curie/Quartz.h>
 #include <Curie/RM.h>
@@ -22,8 +22,8 @@ int32_t main(int32_t argc, char* args[])
             SB sb(q, 1);
 
             {
-                Play p(q, rm, sb);
-                p.Run();
+                Game g(q, rm, sb);
+                g.run();
             }
         }
     }

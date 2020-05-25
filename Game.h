@@ -6,14 +6,14 @@ struct Quartz;
 struct RM;
 struct SB;
 
-struct Play
+struct Game
 {
-    Play(Quartz& a_Q, RM& a_RM, SB& a_SB);
-    ~Play()
+    Game(Quartz& a_Q, RM& a_RM, SB& a_SB);
+    ~Game()
     {
     }
 
-    void Run();
+    void run();
 
     Quartz& m_Q;
 
