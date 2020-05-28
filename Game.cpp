@@ -64,12 +64,14 @@ Game::Game(Quartz& a_Q, RM& a_RM, SB& a_SB)
 
 void Game::run()
 {
+    m_Q.teeth(10);
+
     bool exit = false;
     while ( ! exit)
     {
         Poker p(m_RM, 5, 385);
         p.Write();
-        m_Q.teeth(30);
+        m_Q.teeth(15);
 
         // p.Hold(p.m_Deck.Take(Value::Ten, Suit::Diamonds));
         // p.Hold(p.m_Deck.Take(Value::Jack, Suit::Diamonds));

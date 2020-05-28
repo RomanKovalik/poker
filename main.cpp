@@ -14,7 +14,7 @@ int32_t main(int32_t argc, char* args[])
 
     {
         Quartz q(25);
-        RM rm(q, *w.window);
+        RM rm(q, w);
         SB sb(q, 1);
 
         {
