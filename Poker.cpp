@@ -7,7 +7,7 @@ using namespace std;
 
 vector<uint32_t> Poker::s_Keys;
 
-Poker::Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags)
+Poker::Poker(Curie::Vis::RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags)
 : m_RM(a_RM)
 , m_X(a_X)
 , m_Y(a_Y)

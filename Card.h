@@ -57,7 +57,7 @@ static const std::vector<std::string> SuitStrings
 
 struct Card
 {
-    static void load(RM& a_RM)
+    static void load(Curie::Vis::RM& a_RM)
     {
         s_Keys.resize(2, std::vector<std::vector<uint32_t>>(
             ValueStrings.size(), std::vector<uint32_t>(

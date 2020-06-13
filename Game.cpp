@@ -16,7 +16,7 @@
 #include <utility>
 #include <vector>
 
-Game::Game(Quartz& a_Q, RM& a_RM, SB& a_SB)
+Game::Game(Curie::Quartz& a_Q, Curie::Vis::RM& a_RM, Curie::Snd::SB& a_SB)
 : m_Q(a_Q)
 , m_RM(a_RM)
 , m_SB(a_SB)
@@ -26,11 +26,11 @@ Game::Game(Quartz& a_Q, RM& a_RM, SB& a_SB)
     Poker::load(a_RM);
 
     m_BigDeal = m_SB.CreateSound(m_SB.SForF(5.0),
-    [&](uint32_t t, uint32_t l, SB::working_t& mono)
+    [&](uint32_t t, uint32_t l, Curie::Snd::working_t& mono)
     {
-        static Wave w;
+        static Curie::Snd::Wave w;
         w.tune(220.0);
-        mono = SH(t, l)
+        mono = Curie::Snd::SH(t, l)
             .wave(w)
             .scale(0.9)
             .envelope(m_SB.SForF(0.75), m_SB.SForF(0.6), 0.3, m_SB.SForF(0.75))
@@ -38,11 +38,11 @@ Game::Game(Quartz& a_Q, RM& a_RM, SB& a_SB)
     });
 
     m_SoftBup = m_SB.CreateSound(m_SB.SForF(4.0),
-    [&](uint32_t t, uint32_t l, SB::working_t& mono)
+    [&](uint32_t t, uint32_t l, Curie::Snd::working_t& mono)
     {
-        static Wave w;
+        static Curie::Snd::Wave w;
         w.tune(160.0);
-        mono = SH(t, l)
+        mono = Curie::Snd::SH(t, l)
             .wave(w)
             .scale(0.075)
             .envelope(m_SB.SForF(0.5), m_SB.SForF(6.0), 0.4, m_SB.SForF(1.0))
@@ -50,11 +50,11 @@ Game::Game(Quartz& a_Q, RM& a_RM, SB& a_SB)
     });
 
     m_Win = m_SB.CreateSound(m_SB.SForF(2.0),
-    [&](uint32_t t, uint32_t l, SB::working_t& mono)
+    [&](uint32_t t, uint32_t l, Curie::Snd::working_t& mono)
     {
-        static Wave w;
+        static Curie::Snd::Wave w;
         w.tune(660.0);
-        mono = SH(t, l)
+        mono = Curie::Snd::SH(t, l)
             .wave(w)
             .scale(0.8)
             .envelope(m_SB.SForF(0.75), m_SB.SForF(0.75), 0.6, m_SB.SForF(0.5))

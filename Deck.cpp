@@ -2,7 +2,7 @@
 
 #include <random>
 
-Deck::Deck(RM& a_RM, DeckFlags a_Flags)
+Deck::Deck(Curie::Vis::RM& a_RM, DeckFlags a_Flags)
 : m_RM(a_RM)
 , m_RNG(pcg_extras::seed_seq_from<std::random_device>{})
 , m_Flags(a_Flags)

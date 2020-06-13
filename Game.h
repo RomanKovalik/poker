@@ -1,27 +1,28 @@
 #pragma once
 
-#include <cstdint>
+#include <Curie/Quartz.h>
+#include <Curie/RM.h>
+#include <Curie/SB.h>
 
-struct Quartz;
-struct RM;
-struct SB;
+#include <cstdint>
+#include <memory>
 
 struct Game
 {
-    Game(Quartz& a_Q, RM& a_RM, SB& a_SB);
+    Game(Curie::Quartz& a_Q, Curie::Vis::RM& a_RM, Curie::Snd::SB& a_SB);
     ~Game()
     {
     }
 
     void run();
 
-    Quartz& m_Q;
+    Curie::Quartz& m_Q;
 
-    RM& m_RM;
+    Curie::Vis::RM& m_RM;
 
-    SB& m_SB;
+    Curie::Snd::SB& m_SB;
 
-    uint32_t m_BigDeal;
-    uint32_t m_SoftBup;
-    uint32_t m_Win;
+    std::shared_ptr<Curie::Snd::Sound> m_BigDeal;
+    std::shared_ptr<Curie::Snd::Sound> m_SoftBup;
+    std::shared_ptr<Curie::Snd::Sound> m_Win;
 };

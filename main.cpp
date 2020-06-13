@@ -8,14 +8,14 @@
 
 int32_t main(int32_t argc, char* args[])
 {
-    VL::System s;
+    Curie::VL::System s;
 
-    VL::Window w;
+    Curie::VL::Window w;
 
     {
-        Quartz q(25);
-        RM rm(q, w);
-        SB sb(q, 1);
+        Curie::Quartz q(25);
+        Curie::Vis::RM rm(q, w);
+        Curie::Snd::SB sb(q, 1);
 
         {
             Game g(q, rm, sb);

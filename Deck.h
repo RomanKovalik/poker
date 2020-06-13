@@ -15,7 +15,7 @@ enum DeckFlags
 
 struct Deck
 {
-    Deck(RM& a_RM, DeckFlags a_Flags = DF_None);
+    Deck(Curie::Vis::RM& a_RM, DeckFlags a_Flags = DF_None);
 
     Deck(const Deck& d);
 
@@ -25,7 +25,7 @@ struct Deck
 
     Card Take(Value a_Value, Suit a_Suit);
 
-    RM& m_RM;
+    Curie::Vis::RM& m_RM;
 
     pcg64_unique m_RNG;
 

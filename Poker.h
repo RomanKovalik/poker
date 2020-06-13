@@ -47,7 +47,7 @@ struct Poker
 {
     struct VisibleCard
     {
-        VisibleCard(RM& a_RM, Card a_Card)
+        VisibleCard(Curie::Vis::RM& a_RM, Card a_Card)
         : m_RM(a_RM)
         , m_Card(a_Card)
         , m_Entry(m_RM.Add())
@@ -100,12 +100,12 @@ struct Poker
                 m_RM.Remove(m_Entry);
         }
 
-        RM& m_RM;
+        Curie::Vis::RM& m_RM;
         Card m_Card;
-        RM::Entry m_Entry;
+        Curie::Vis::Entry m_Entry;
     };
 
-    static void load(RM& a_RM)
+    static void load(Curie::Vis::RM& a_RM)
     {
         s_Keys.resize(PokerWinStrings.size(), 0);
 
@@ -123,7 +123,7 @@ struct Poker
 
     static std::vector<uint32_t> s_Keys;
 
-    Poker(RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags = PF_None);
+    Poker(Curie::Vis::RM& a_RM, int32_t a_X, int32_t a_Y, PokerFlags a_Flags = PF_None);
 
     ~Poker();
 
@@ -137,7 +137,7 @@ struct Poker
 
     void Score();
 
-    RM& m_RM;
+    Curie::Vis::RM& m_RM;
     int32_t m_X;
     int32_t m_Y;
 
@@ -147,6 +147,6 @@ struct Poker
 
     Deck m_Deck;
     std::vector<std::unique_ptr<VisibleCard>> m_Hand;
-    RM::Entry m_Score;
+    Curie::Vis::Entry m_Score;
     PokerWin m_Win;
 };
