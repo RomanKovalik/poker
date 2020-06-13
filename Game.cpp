@@ -98,11 +98,12 @@ void Game::run()
             }
         }
 
+        using namespace Curie::EL;
         std::set<uint32_t> held;
-        Input in;
-        in.m_KeyDownResponses[Catch({SDLK_1, SDLK_2, SDLK_3, SDLK_4, SDLK_5})] = [&](SDL_Keycode a_Key)
+        Curie::Input in;
+        in.m_KeyDownResponses[Curie::Catch({Key_1, Key_2, Key_3, Key_4, Key_5})] = [&](Event a_Key)
         {
-            uint32_t index = a_Key - SDLK_1;
+            uint32_t index = a_Key - Key_1;
 
             if (held.find(index) == held.end())
             {
@@ -114,14 +115,24 @@ void Game::run()
 
                 held.insert(index);
             }
+            else
+            {
+                for (auto& o : others)
+                {
+                    o->Drop(p.m_Hand[index]->m_Card);
+                    o->Write();
+                }
+
+                held.erase(index);
+            }
 
             return false;
         };
-        in.m_KeyDownResponses[Catch({SDLK_RETURN})] = [](SDL_Keycode a_Key)
+        in.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Event a_Key)
         {
             return true;
         };
-        in.m_KeyDownResponses[Catch({SDLK_ESCAPE})] = [&](SDL_Keycode a_Key)
+        in.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Event a_Key)
         {
             exit = true;
             return exit;
@@ -162,12 +173,12 @@ void Game::run()
             m_Q.tooth();
         }
 
-        Input in2;
-        in2.m_KeyDownResponses[Catch({SDLK_RETURN})] = [](SDL_Keycode a_Key)
+        Curie::Input in2;
+        in2.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Event a_Key)
         {
             return true;
         };
-        in2.m_KeyDownResponses[Catch({SDLK_ESCAPE})] = [&](SDL_Keycode a_Key)
+        in2.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Event a_Key)
         {
             exit = true;
             return exit;

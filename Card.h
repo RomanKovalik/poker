@@ -98,6 +98,11 @@ struct Card
     {
     }
 
+    bool operator==(const Card& c)
+    {
+        return c.m_Value == m_Value && c.m_Suit == m_Suit;
+    }
+
     Value m_Value;
     Suit m_Suit;
 };

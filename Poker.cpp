@@ -1,6 +1,7 @@
 #include <Poker.h>
 
 #include <functional>
+#include <iterator>
 #include <map>
 
 using namespace std;
@@ -68,6 +69,18 @@ void Poker::Draw()
 void Poker::Hold(Card a_Card)
 {
     m_Hand.emplace_back(new VisibleCard(m_RM, a_Card));
+}
+
+void Poker::Drop(Card a_Card)
+{
+    for (auto it = m_Hand.begin(); it != m_Hand.end(); ++it)
+    {
+        if ((*it)->m_Card == a_Card)
+        {
+            m_Hand.erase(it);
+            break;
+        }
+    }
 }
 
 void Poker::Score()

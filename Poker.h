@@ -133,7 +133,9 @@ struct Poker
 
     void Draw();
 
-    void Hold(Card a_Card);
+    void Hold(Card);
+
+    void Drop(Card);
 
     void Score();
 
