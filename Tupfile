@@ -1,17 +1,7 @@
-CXX = clang
+include_rules
+INCLUDE_FLAGS = -I.
 
-COMPILER_FLAGS_DEFAULT = -std=c++17 -Wall -I.
-
-COMPILER_FLAGS_BUILD = -g -Werror -Wfatal-errors
-
-ifeq (@(RELEASE),y)
-COMPILER_FLAGS_BUILD = -O3 -DNDEBUG
-endif
-
-LINKER_FLAGS = -lstdc++ -lm -lportaudio -lpthread -lSDL2 -lSDL2_image
-
-: foreach Curie/*.cpp |> $(CXX) -c $(COMPILER_FLAGS_DEFAULT) $(COMPILER_FLAGS_BUILD) %f -o %o |> Curie/%B.o
-: foreach *.cpp |> $(CXX) -c $(COMPILER_FLAGS_DEFAULT) $(COMPILER_FLAGS_BUILD) %f -o %o |> %B.o
-: Curie/*.o *.o |> $(CXX) $(LINKER_FLAGS) %f -o %o |> poker
+: foreach *.cpp |> !cxx |> %B.o
+: *.o Curie/libcurie.a |> !link |>
 
 .gitignore
