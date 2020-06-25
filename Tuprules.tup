@@ -4,7 +4,7 @@ CXX = clang
 
 COMPILER_FLAGS_DEFAULT = -std=c++17 -Wall
 
-COMPILER_FLAGS_BUILD = -g -Werror -Wfatal-errors
+COMPILER_FLAGS_BUILD = -Og -g3 -Werror -Wfatal-errors
 
 ifeq (@(RELEASE),y)
 COMPILER_FLAGS_BUILD = -O3 -DNDEBUG
