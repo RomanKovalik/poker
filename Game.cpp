@@ -3,7 +3,7 @@
 #include <Deck.h>
 #include <Poker.h>
 
-#include <Curie/Input.h>
+#include <Curie/Cam.h>
 #include <Curie/Quartz.h>
 #include <Curie/RM.h>
 #include <Curie/SB.h>
@@ -100,8 +100,8 @@ void Game::run()
 
         using namespace Curie::IL;
         std::set<uint32_t> held;
-        Curie::Input in;
-        in.m_KeyDownResponses[Curie::Catch({Key_1, Key_2, Key_3, Key_4, Key_5})] = [&](Input a_Key)
+        Curie::Cam cam1;
+        cam1.m_KeyDownResponses[Curie::Catch({Key_1, Key_2, Key_3, Key_4, Key_5})] = [&](Input a_Key)
         {
             uint32_t index = a_Key - Key_1;
 
@@ -128,17 +128,17 @@ void Game::run()
 
             return false;
         };
-        in.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Input a_Key)
+        cam1.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Input a_Key)
         {
             return true;
         };
-        in.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Input a_Key)
+        cam1.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Input a_Key)
         {
             exit = true;
             return exit;
         };
 
-        in.open([&]()
+        cam1.open([&]()
         {
             m_Q.tooth();
         });
@@ -173,18 +173,18 @@ void Game::run()
             m_Q.tooth();
         }
 
-        Curie::Input in2;
-        in2.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Input a_Key)
+        Curie::Cam cam2;
+        cam2.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Input a_Key)
         {
             return true;
         };
-        in2.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Input a_Key)
+        cam2.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Input a_Key)
         {
             exit = true;
             return exit;
         };
 
-        in2.open([&]()
+        cam2.open([&]()
         {
             m_Q.tooth();
         });
