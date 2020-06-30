@@ -49,7 +49,7 @@ void Poker::Write()
         assert(c->m_Entry.m_CiCa);
         c->m_Entry.write(
             key,
-            m_X + ((m_RM.GetImage(key)->w + spacing) * i),
+            m_X + ((m_RM.GetImage(key)->get_width() + spacing) * i),
             m_Y);
 
         i++;
