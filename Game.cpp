@@ -98,10 +98,10 @@ void Game::run()
             }
         }
 
-        using namespace Curie::EL;
+        using namespace Curie::IL;
         std::set<uint32_t> held;
         Curie::Input in;
-        in.m_KeyDownResponses[Curie::Catch({Key_1, Key_2, Key_3, Key_4, Key_5})] = [&](Event a_Key)
+        in.m_KeyDownResponses[Curie::Catch({Key_1, Key_2, Key_3, Key_4, Key_5})] = [&](Input a_Key)
         {
             uint32_t index = a_Key - Key_1;
 
@@ -128,11 +128,11 @@ void Game::run()
 
             return false;
         };
-        in.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Event a_Key)
+        in.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Input a_Key)
         {
             return true;
         };
-        in.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Event a_Key)
+        in.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Input a_Key)
         {
             exit = true;
             return exit;
@@ -174,11 +174,11 @@ void Game::run()
         }
 
         Curie::Input in2;
-        in2.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Event a_Key)
+        in2.m_KeyDownResponses[Curie::Catch({Key_Return})] = [](Input a_Key)
         {
             return true;
         };
-        in2.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Event a_Key)
+        in2.m_KeyDownResponses[Curie::Catch({Key_Escape})] = [&](Input a_Key)
         {
             exit = true;
             return exit;

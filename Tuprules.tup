@@ -10,7 +10,19 @@ ifeq (@(RELEASE),y)
 COMPILER_FLAGS_BUILD = -O3 -DNDEBUG
 endif
 
-LINKER_FLAGS = -lstdc++ -lm -lportaudio -lpthread -lSDL2 -lSDL2_image
+LINKER_FLAGS = -lstdc++ -lm -lpthread
+
+ifeq (@(SOUND_LAYER),portaudio)
+LINKER_FLAGS += -lportaudio
+endif
+
+ifeq (@(VIDEO_LAYER),sdl2)
+LINKER_FLAGS += -lSDL2 -lSDL2_image
+else
+ifeq (@(INPUT_LAYER),sdl2)
+LINKER_FLAGS += -lSDL2
+endif
+endif
 
 !cxx = |> $(CXX) -c $(INCLUDE_FLAGS) $(COMPILER_FLAGS_DEFAULT) $(COMPILER_FLAGS_BUILD) %f -o %o |> %B.o
 !ar = |> ar crs %o %f |>
